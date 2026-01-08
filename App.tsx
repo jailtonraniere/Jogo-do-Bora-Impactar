@@ -221,10 +221,10 @@ const App: React.FC = () => {
   const LogoText = () => (
     <div className="flex flex-col items-center select-none group transition-transform duration-300 hover:scale-105">
       <div className="flex items-center gap-2">
-        <span className="text-3xl md:text-5xl font-black italic text-[#0c1c4e] animate-logo-pop">BORA</span>
-        <span className="text-3xl md:text-5xl font-black italic text-[#32c5ff] animate-logo-shimmer">IMPACTAR</span>
+        <span className="text-2xl md:text-4xl font-black italic text-[#0c1c4e] animate-logo-pop">BORA</span>
+        <span className="text-2xl md:text-4xl font-black italic text-[#32c5ff] animate-logo-shimmer">IMPACTAR</span>
       </div>
-      <div className="h-2 w-32 md:w-48 bg-[#32c5ff] mt-1 rounded-full overflow-hidden">
+      <div className="h-1.5 w-24 md:w-32 bg-[#32c5ff] mt-0.5 rounded-full overflow-hidden">
         <div className="h-full bg-white/30 animate-shimmer-sweep"></div>
       </div>
     </div>
@@ -273,7 +273,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen p-4 pb-24 flex flex-col items-center bg-[#f0fdf4]">
+    <div className="min-h-screen p-2 flex flex-col items-center bg-[#f0fdf4]">
       {gameState === 'finished' && <ConfettiEffect />}
       
       {showTurnOverlay && (
@@ -289,27 +289,27 @@ const App: React.FC = () => {
       )}
 
       <div className="fixed top-4 right-4 z-50 flex gap-2">
-        <button onClick={handleGoHome} className="bg-white border-2 border-[#0c1c4e] p-2.5 rounded-full shadow-lg active:scale-95 transition-transform hover:rotate-12" title="Voltar ao Início">🏠</button>
-        <button onClick={handleHint} disabled={!hintAvailable} className={`bg-white border-2 p-2.5 rounded-full shadow-lg active:scale-95 ${hintAvailable ? 'border-yellow-400 hover:rotate-12' : 'opacity-50 grayscale cursor-not-allowed'}`} title="Dica">💡</button>
-        <button onClick={handleResetGame} className="bg-white border-2 border-[#0c1c4e] p-2.5 rounded-full shadow-lg active:scale-95 transition-transform hover:-rotate-12" title="Recomeçar Partida">🔄</button>
-        <button onClick={() => { setIsMuted(!isMuted); playSound('click'); }} className="bg-white border-2 border-[#32c5ff] p-2.5 rounded-full shadow-lg active:scale-95" title={isMuted ? 'Ativar Som' : 'Mudar Som'}>{isMuted ? '🔇' : '🔊'}</button>
+        <button onClick={handleGoHome} className="bg-white border-2 border-[#0c1c4e] p-2 rounded-full shadow-lg active:scale-95 transition-transform hover:rotate-12">🏠</button>
+        <button onClick={handleHint} disabled={!hintAvailable} className={`bg-white border-2 p-2 rounded-full shadow-lg active:scale-95 ${hintAvailable ? 'border-yellow-400 hover:rotate-12' : 'opacity-50 grayscale cursor-not-allowed'}`}>💡</button>
+        <button onClick={handleResetGame} className="bg-white border-2 border-[#0c1c4e] p-2 rounded-full shadow-lg active:scale-95 transition-transform hover:-rotate-12">🔄</button>
+        <button onClick={() => { setIsMuted(!isMuted); playSound('click'); }} className="bg-white border-2 border-[#32c5ff] p-2 rounded-full shadow-lg active:scale-95">{isMuted ? '🔇' : '🔊'}</button>
       </div>
 
-      <header className="text-center mb-4 flex flex-col items-center w-full max-w-4xl pt-4">
+      <header className="text-center mb-2 flex flex-col items-center w-full max-w-4xl pt-2">
         <LogoText />
         
-        <div className={`flex items-center gap-6 mt-8 bg-white/60 backdrop-blur px-8 py-4 rounded-full shadow-xl transition-all duration-500 ${isSwitchingPlayer ? 'opacity-30 blur-sm' : ''}`}>
+        <div className={`flex items-center gap-4 mt-2 bg-white/60 backdrop-blur px-6 py-2 rounded-full shadow-md transition-all duration-500 ${isSwitchingPlayer ? 'opacity-30 blur-sm' : ''}`}>
           {players.map((p, i) => (
             <div key={i} className="flex items-center gap-2 relative">
-              <div className={`flex flex-col items-center gap-1 transition-all duration-500 ${currentPlayerIndex === i ? 'scale-125 z-10' : 'opacity-40 scale-90 grayscale'}`}>
-                <div className={`w-16 h-16 rounded-full flex items-center justify-center text-4xl shadow-lg border-4 transition-all ${currentPlayerIndex === i ? 'bg-blue-100 border-[#32c5ff] animate-bounce-active shadow-[#32c5ff]/40 ring-4 ring-[#32c5ff]/20' : 'bg-white border-gray-100'}`}>
+              <div className={`flex flex-col items-center transition-all duration-500 ${currentPlayerIndex === i ? 'scale-110 z-10' : 'opacity-40 scale-90 grayscale'}`}>
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center text-3xl shadow-md border-3 transition-all ${currentPlayerIndex === i ? 'bg-blue-50 border-[#32c5ff] animate-bounce-active ring-2 ring-[#32c5ff]/20' : 'bg-white border-gray-100'}`}>
                   {p.avatar}
                 </div>
-                <span className={`font-black text-[10px] uppercase tracking-tighter max-w-[60px] truncate ${currentPlayerIndex === i ? 'text-[#0c1c4e]' : 'text-gray-400'}`}>
+                <span className={`font-black text-[8px] uppercase tracking-tighter max-w-[50px] truncate ${currentPlayerIndex === i ? 'text-[#0c1c4e]' : 'text-gray-400'}`}>
                   {p.name}
                 </span>
               </div>
-              {i < players.length - 1 && <div className="w-4 h-1 bg-gray-200 rounded-full mt-[-15px]" />}
+              {i < players.length - 1 && <div className="w-2 h-0.5 bg-gray-200 rounded-full" />}
             </div>
           ))}
         </div>
@@ -317,7 +317,7 @@ const App: React.FC = () => {
 
       <ImpactBar points={points} />
 
-      <div className={`grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-10 my-8 max-w-7xl transition-all duration-500 ${isSwitchingPlayer ? 'opacity-30 blur-sm scale-95' : ''}`}>
+      <div className={`grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-6 my-2 max-w-7xl transition-all duration-500 ${isSwitchingPlayer ? 'opacity-30 blur-sm scale-95' : ''}`}>
         {cards.map((card) => (
           <div key={card.id} className={`${hintingCards.includes(card.id) ? 'animate-hint-shake z-10' : ''}`}>
              <MemoryCard card={card} isFlipped={flippedCards.some(c => c.id === card.id)} isMatched={matchedPairs.includes(card.pairId)} isNewlyMatched={newlyMatchedPair === card.pairId} onClick={handleCardClick} disabled={isProcessing || isSwitchingPlayer} />
@@ -338,7 +338,6 @@ const App: React.FC = () => {
 
       {gameState === 'finished' && (
         <div className="fixed inset-0 bg-[#0c1c4e]/95 flex flex-col items-center justify-center z-[110] p-6 text-center text-white animate-fade-in overflow-hidden">
-          {/* Decorative floating elements inside the finish screen but above the background */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
              {['🎉', '✨', '🎈', '🎊', '🌟'].map((emoji, i) => (
                <div key={i} className="absolute animate-float-victory text-4xl" style={{
@@ -351,10 +350,8 @@ const App: React.FC = () => {
           </div>
 
           <div className="relative bg-white/10 backdrop-blur-xl rounded-[60px] p-12 max-w-2xl border-8 border-[#32c5ff] shadow-[0_0_80px_rgba(50,197,255,0.4)] animate-modal-pop">
-            {/* Sparkle effect on the box corners */}
             <div className="absolute -top-10 -left-10 text-6xl animate-bounce">🎊</div>
             <div className="absolute -bottom-10 -right-10 text-6xl animate-bounce" style={{animationDelay: '0.3s'}}>🎉</div>
-            
             <h1 className="text-7xl font-black mb-6 text-[#32c5ff] uppercase italic drop-shadow-lg">UAU! 🌍</h1>
             <p className="text-3xl font-bold mb-4">Time de Impacto:</p>
             <div className="flex justify-center gap-6 mb-10 bg-white/5 p-6 rounded-3xl">
@@ -407,7 +404,7 @@ const App: React.FC = () => {
         .animate-modal-pop { animation: modal-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
         .animate-fade-in { animation: fade-in 0.3s ease-out; }
-        @keyframes bounce-active { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes bounce-active { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         .animate-bounce-active { animation: bounce-active 1.5s infinite ease-in-out; }
         @keyframes float-victory {
           0%, 100% { transform: translateY(0) scale(1); }
