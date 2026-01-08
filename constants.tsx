@@ -1,15 +1,16 @@
 
-import { CardTheme, Challenge } from './types';
+import { CardTheme, Challenge } from './types.ts';
 
+// O conteúdo agora foca no elemento central da ilustração artística
 export const CARD_PAIRS: { theme: CardTheme; icon: string; situation: string; label: string; color: string; secondaryColor: string }[] = [
-  { theme: CardTheme.ENVIRONMENT, icon: '👦🌱', situation: 'Plantando Árvore', label: 'Natureza', color: '#a7f3d0', secondaryColor: '#059669' },
-  { theme: CardTheme.SOLIDARITY, icon: '👧🎁', situation: 'Doando Brinquedo', label: 'Solidariedade', color: '#fecaca', secondaryColor: '#dc2626' },
-  { theme: CardTheme.EMPATHY, icon: '👦🤝', situation: 'Ajudando Amigo', label: 'Empatia', color: '#fef08a', secondaryColor: '#ca8a04' },
-  { theme: CardTheme.EDUCATION, icon: '👧📚', situation: 'Lendo Juntos', label: 'Aprender', color: '#bfdbfe', secondaryColor: '#2563eb' },
-  { theme: CardTheme.INCLUSION, icon: '🧒♿', situation: 'Todos Brincam', label: 'Inclusão', color: '#ddd6fe', secondaryColor: '#7c3aed' },
-  { theme: CardTheme.ANIMALS, icon: '👦🐶', situation: 'Cuidando do Pet', label: 'Animais', color: '#fed7aa', secondaryColor: '#ea580c' },
-  { theme: CardTheme.KINDNESS, icon: '👧✨', situation: 'Gesto Gentil', label: 'Gentileza', color: '#fbcfe8', secondaryColor: '#db2777' },
-  { theme: CardTheme.SHARING, icon: '👦🍕', situation: 'Dividindo Lanche', label: 'Compartilhar', color: '#bae6fd', secondaryColor: '#0284c7' },
+  { theme: CardTheme.ENVIRONMENT, icon: '🌳', situation: 'Plantando Árvore', label: 'Natureza', color: '#a7f3d0', secondaryColor: '#059669' },
+  { theme: CardTheme.SOLIDARITY, icon: '🎁', situation: 'Doando Brinquedo', label: 'Solidariedade', color: '#fecaca', secondaryColor: '#dc2626' },
+  { theme: CardTheme.EMPATHY, icon: '🤝', situation: 'Ajudando Amigo', label: 'Empatia', color: '#fef08a', secondaryColor: '#ca8a04' },
+  { theme: CardTheme.EDUCATION, icon: '📖', situation: 'Lendo Juntos', label: 'Aprender', color: '#bfdbfe', secondaryColor: '#2563eb' },
+  { theme: CardTheme.INCLUSION, icon: '🎡', situation: 'Todos Brincam', label: 'Inclusão', color: '#ddd6fe', secondaryColor: '#7c3aed' },
+  { theme: CardTheme.ANIMALS, icon: '🐾', situation: 'Cuidando do Pet', label: 'Animais', color: '#fed7aa', secondaryColor: '#ea580c' },
+  { theme: CardTheme.KINDNESS, icon: '✨', situation: 'Gesto Gentil', label: 'Gentileza', color: '#fbcfe8', secondaryColor: '#db2777' },
+  { theme: CardTheme.SHARING, icon: '🍕', situation: 'Dividindo Lanche', label: 'Compartilhar', color: '#bae6fd', secondaryColor: '#0284c7' },
 ];
 
 export const CHALLENGES: Record<CardTheme, Challenge> = {
