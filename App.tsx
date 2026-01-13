@@ -219,55 +219,153 @@ const App: React.FC = () => {
   };
 
   const LogoText = () => (
-    <div className="flex flex-col items-center select-none group transition-transform duration-300 hover:scale-105">
-      <div className="flex items-center gap-2">
-        <span className="text-2xl md:text-4xl font-black italic text-[#0c1c4e] animate-logo-pop">BORA</span>
-        <span className="text-2xl md:text-4xl font-black italic text-[#32c5ff] animate-logo-shimmer">IMPACTAR</span>
+    <div className="flex flex-col items-center select-none group relative py-6">
+      {/* Adereços Decorativos */}
+      <div className="absolute top-2 -right-8 text-2xl animate-bounce-slow opacity-80 rotate-12">✨</div>
+      <div className="absolute -bottom-2 -left-10 text-2xl animate-pulse opacity-60">🌍</div>
+      
+      {/* Container de Texto com Padding Lateral para evitar corte */}
+      <div className="flex items-center gap-3 transform transition-all duration-500 group-hover:scale-110 px-4">
+        <span className="text-4xl md:text-6xl font-black italic text-[#0c1c4e] tracking-tight drop-shadow-[0_6px_0_rgba(0,0,0,0.1)] relative">
+          BORA
+        </span>
+        <span className="text-4xl md:text-6xl font-black italic bg-gradient-to-r from-[#32c5ff] via-[#1e3a8a] to-[#32c5ff] bg-[length:200%_auto] animate-shimmer-text bg-clip-text text-transparent tracking-normal drop-shadow-[0_6px_0_rgba(50,197,255,0.2)] pr-4">
+          IMPACTAR
+        </span>
       </div>
-      <div className="h-1.5 w-24 md:w-32 bg-[#32c5ff] mt-0.5 rounded-full overflow-hidden">
-        <div className="h-full bg-white/30 animate-shimmer-sweep"></div>
+      
+      {/* Barra de Subtítulo com Largura Ajustada */}
+      <div className="relative mt-2 flex flex-col items-center">
+        <div className="h-2 w-48 md:w-64 bg-[#0c1c4e]/10 rounded-full overflow-hidden">
+          <div className="h-full w-full bg-gradient-to-r from-transparent via-[#32c5ff] to-transparent animate-shimmer-sweep"></div>
+        </div>
+        <div className="mt-1">
+          <span className="text-[11px] font-black uppercase tracking-[0.4em] text-[#0c1c4e]/50">Edição Kids</span>
+        </div>
       </div>
+
+      <style>{`
+        @keyframes shimmer-text {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 200% 50%; }
+        }
+        @keyframes bounce-slow {
+          0%, 100% { transform: translateY(0) rotate(12deg); }
+          50% { transform: translateY(-10px) rotate(20deg); }
+        }
+        @keyframes shimmer-sweep {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+        .animate-shimmer-text { animation: shimmer-text 4s linear infinite; }
+        .animate-bounce-slow { animation: bounce-slow 3.5s infinite ease-in-out; }
+        .animate-shimmer-sweep { animation: shimmer-sweep 2.5s linear infinite; }
+      `}</style>
     </div>
   );
 
   if (gameState === 'setup') {
     return (
-      <div className="min-h-screen p-6 flex flex-col items-center justify-start bg-[#f0fdf4]">
-        <LogoText />
-        <div className="mt-8 bg-white p-6 md:p-10 rounded-[40px] shadow-2xl border-4 border-[#32c5ff] w-full max-w-4xl text-center">
-          <h2 className="text-2xl md:text-3xl font-black text-[#0c1c4e] mb-8 uppercase">Quem vai impactar hoje?</h2>
+      <div className="min-h-screen p-6 flex flex-col items-center justify-center bg-[#f0fdf4] relative overflow-hidden">
+        {/* Background Decorative Blobs */}
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#32c5ff]/5 rounded-full blur-[100px] animate-pulse"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-green-400/5 rounded-full blur-[100px] animate-pulse" style={{animationDelay: '1s'}}></div>
+        
+        <div className="z-10 w-full max-w-5xl flex flex-col items-center">
+          <LogoText />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 max-h-[50vh] overflow-y-auto px-2 py-4 custom-scrollbar">
-            {players.map((player, idx) => (
-              <div key={idx} className="relative p-4 rounded-3xl bg-white border-4 border-blue-50 shadow-md transition-all hover:border-blue-200">
-                {players.length > 1 && (
-                  <button onClick={() => removePlayer(idx)} className="absolute -top-2 -right-2 bg-red-500 text-white w-7 h-7 rounded-full font-black shadow-lg hover:scale-110 active:scale-95 z-10 text-xs">✕</button>
-                )}
-                <div className="text-5xl mb-3 bg-blue-50 rounded-full w-20 h-20 mx-auto flex items-center justify-center shadow-inner border-2 border-white">{player.avatar}</div>
-                <div className="flex flex-wrap justify-center gap-1.5 mb-3 bg-gray-50 p-2.5 rounded-2xl">
-                  {AVATARS.map(a => (
-                    <button key={a} onClick={() => { playSound('click'); updatePlayer(idx, { avatar: a }); }} className={`text-xl p-1 rounded-lg transition-all active:scale-90 ${player.avatar === a ? 'bg-[#32c5ff] scale-110 shadow-sm rotate-6 text-white' : 'hover:bg-blue-100'}`}>{a}</button>
+          <div className="mt-12 w-full text-center">
+            <h2 className="text-xl font-black text-[#0c1c4e]/60 mb-10 uppercase tracking-[0.2em] italic">Escolha sua Equipe</h2>
+            
+            <div className="flex flex-wrap justify-center items-end gap-6 md:gap-10 mb-16">
+              {players.map((player, idx) => (
+                <div key={idx} className="group relative flex flex-col items-center animate-fade-in-up" style={{animationDelay: `${idx * 0.1}s`}}>
+                  {players.length > 1 && (
+                    <button 
+                      onClick={() => removePlayer(idx)} 
+                      className="absolute -top-2 -right-2 bg-white text-[#0c1c4e] w-8 h-8 rounded-full font-black shadow-xl border-2 border-gray-100 hover:bg-red-50 hover:text-red-500 hover:scale-110 active:scale-95 z-20 transition-all flex items-center justify-center text-sm"
+                    >
+                      ✕
+                    </button>
+                  )}
+                  
+                  {/* Avatar Bubble */}
+                  <div className="relative mb-4">
+                    <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-[40px] shadow-[0_15px_35px_rgba(0,0,0,0.08)] flex items-center justify-center text-5xl md:text-7xl border-4 border-transparent group-hover:border-[#32c5ff] transition-all duration-300 transform group-hover:-translate-y-2 group-hover:rotate-3 overflow-hidden">
+                       <div className="absolute inset-0 bg-gradient-to-tr from-[#32c5ff]/5 to-transparent"></div>
+                       {player.avatar}
+                    </div>
+                    
+                    {/* Mini Avatar Picker */}
+                    <div className="absolute -bottom-2 -left-2 -right-2 bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-gray-100 p-1 flex justify-center gap-0.5 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                      {AVATARS.slice(0, 6).map(a => (
+                        <button 
+                          key={a} 
+                          onClick={() => { playSound('click'); updatePlayer(idx, { avatar: a }); }} 
+                          className={`text-sm p-1 rounded-lg transition-all ${player.avatar === a ? 'bg-[#32c5ff] text-white scale-110' : 'hover:bg-blue-50'}`}
+                        >
+                          {a}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Name Input Minimal */}
+                  <input 
+                    type="text" 
+                    value={player.name} 
+                    onChange={e => updatePlayer(idx, { name: e.target.value })} 
+                    className="bg-transparent border-b-2 border-[#0c1c4e]/10 text-center font-black text-lg text-[#0c1c4e] py-1 outline-none focus:border-[#32c5ff] transition-all w-32 placeholder:opacity-30" 
+                    placeholder="Nome..."
+                  />
+                </div>
+              ))}
+
+              {/* Discreto Botão Adicionar */}
+              {players.length < 4 && (
+                <button 
+                  onClick={addPlayer} 
+                  className="w-24 h-24 md:w-32 md:h-32 rounded-[40px] border-4 border-dashed border-[#0c1c4e]/10 flex flex-col items-center justify-center hover:bg-white hover:border-[#32c5ff] hover:scale-105 transition-all group mb-10"
+                >
+                  <span className="text-3xl text-[#0c1c4e]/20 group-hover:text-[#32c5ff] transition-colors">＋</span>
+                  <span className="text-[10px] font-black uppercase text-[#0c1c4e]/20 group-hover:text-[#32c5ff] tracking-widest mt-1">Convidar</span>
+                </button>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-6 items-center">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-[#32c5ff] rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-all animate-pulse"></div>
+                <button 
+                  onClick={initializeGame} 
+                  className="relative bg-[#32c5ff] hover:bg-[#0c1c4e] text-white text-2xl md:text-3xl font-black py-6 px-16 rounded-full shadow-2xl transition-all active:scale-95 uppercase italic hover:scale-105 border-b-8 border-black/10 overflow-hidden"
+                >
+                  <span className="relative z-10">VAMOS IMPACTAR! 🚀</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer-sweep"></div>
+                </button>
+              </div>
+              
+              <div className="flex items-center gap-3 px-6 py-2 bg-white/40 backdrop-blur-sm rounded-full border border-white/50 shadow-sm">
+                <div className="flex -space-x-2">
+                  {players.map((p, i) => (
+                    <div key={i} className="w-6 h-6 rounded-full bg-white flex items-center justify-center text-xs shadow-sm ring-2 ring-white">{p.avatar}</div>
                   ))}
                 </div>
-                <input type="text" value={player.name} onChange={e => updatePlayer(idx, { name: e.target.value })} className="w-full p-2.5 rounded-xl border-3 border-[#32c5ff] text-center font-black text-base text-[#0c1c4e] focus:ring-4 focus:ring-blue-100 outline-none transition-all" placeholder="Nome do Jogador" />
+                <p className="text-[#0c1c4e] font-black text-[10px] uppercase tracking-[0.2em] opacity-60">
+                  {players.length} {players.length === 1 ? 'Líder' : 'Heróis'} no time
+                </p>
               </div>
-            ))}
-
-            {players.length < 4 && (
-              <button onClick={addPlayer} className="flex flex-col items-center justify-center p-4 rounded-3xl border-4 border-dashed border-gray-300 bg-gray-50/50 hover:bg-blue-50 hover:border-[#32c5ff] transition-all group min-h-[220px]">
-                <div className="text-4xl mb-3 text-gray-400 group-hover:text-[#32c5ff] group-hover:scale-110 transition-all">➕</div>
-                <span className="text-lg font-black text-gray-400 group-hover:text-[#0c1c4e] uppercase">Adicionar Amigo</span>
-              </button>
-            )}
-          </div>
-
-          <div className="flex flex-col gap-4 items-center">
-            <button onClick={initializeGame} className="bg-[#32c5ff] hover:bg-[#0c1c4e] text-white text-2xl md:text-3xl font-black py-5 px-12 md:px-16 rounded-full shadow-2xl transition-all active:scale-95 uppercase italic hover:scale-105 border-b-8 border-black/20">VAMOS IMPACTAR! 🚀</button>
-            <p className="text-[#0c1c4e] font-black opacity-50 uppercase tracking-widest text-xs">
-              {players.length} {players.length === 1 ? 'Jogador' : 'Jogadores'} prontos
-            </p>
+            </div>
           </div>
         </div>
+
+        <style>{`
+          @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          .animate-fade-in-up { animation: fade-in-up 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        `}</style>
       </div>
     );
   }
@@ -329,8 +427,8 @@ const App: React.FC = () => {
         <div className="fixed inset-0 bg-[#0c1c4e]/90 flex items-center justify-center z-50 p-4 backdrop-blur-md animate-fade-in">
           <div className="bg-white rounded-[50px] p-10 max-w-md w-full text-center shadow-2xl border-8 border-[#32c5ff] animate-modal-pop">
             <div className="text-7xl mb-6 animate-bounce">🌟</div>
-            <h2 className="text-4xl font-black text-[#0c1c4e] mb-4 uppercase">MISSÃO! 🤝</h2>
-            <p className="text-2xl text-gray-700 mb-8 font-black italic px-4">"{activeChallenge.text}"</p>
+            <h2 className="text-4xl font-black text-[#0c1c4e] mb-4 uppercase tracking-tighter">MISSÃO! 🤝</h2>
+            <p className="text-2xl text-gray-700 mb-8 font-black italic px-4 leading-snug">"{activeChallenge.text}"</p>
             <button onClick={completeChallenge} className="bg-[#32c5ff] hover:bg-[#0c1c4e] text-white text-2xl font-black py-5 px-10 rounded-full shadow-xl w-full uppercase active:scale-95 border-b-8 border-black/20 hover:scale-105 transition-all">CONCLUÍDO!</button>
           </div>
         </div>
@@ -352,7 +450,7 @@ const App: React.FC = () => {
           <div className="relative bg-white/10 backdrop-blur-xl rounded-[60px] p-12 max-w-2xl border-8 border-[#32c5ff] shadow-[0_0_80px_rgba(50,197,255,0.4)] animate-modal-pop">
             <div className="absolute -top-10 -left-10 text-6xl animate-bounce">🎊</div>
             <div className="absolute -bottom-10 -right-10 text-6xl animate-bounce" style={{animationDelay: '0.3s'}}>🎉</div>
-            <h1 className="text-7xl font-black mb-6 text-[#32c5ff] uppercase italic drop-shadow-lg">UAU! 🌍</h1>
+            <h1 className="text-7xl font-black mb-6 text-[#32c5ff] uppercase italic drop-shadow-lg tracking-tighter">UAU! 🌍</h1>
             <p className="text-3xl font-bold mb-4">Time de Impacto:</p>
             <div className="flex justify-center gap-6 mb-10 bg-white/5 p-6 rounded-3xl">
               {players.map((p, i) => (
@@ -374,7 +472,7 @@ const App: React.FC = () => {
       {showResetConfirm && (
         <div className="fixed inset-0 bg-[#0c1c4e]/60 flex items-center justify-center z-[120] p-4 backdrop-blur-sm animate-fade-in">
           <div className="bg-white rounded-[40px] p-10 max-sm:p-6 max-w-sm w-full text-center border-8 border-[#32c5ff] shadow-2xl animate-modal-pop">
-            <h3 className="text-3xl font-black mb-8 uppercase text-[#0c1c4e]">Recomeçar? 🔄</h3>
+            <h3 className="text-3xl font-black mb-8 uppercase text-[#0c1c4e] tracking-tight">Recomeçar? 🔄</h3>
             <div className="flex gap-4">
               <button onClick={() => setShowResetConfirm(false)} className="flex-1 bg-gray-200 font-black py-4 rounded-full active:scale-95 uppercase text-[#0c1c4e]">Não</button>
               <button onClick={initializeGame} className="flex-1 bg-[#0c1c4e] text-white font-black py-4 rounded-full active:scale-95 uppercase shadow-lg">Sim</button>
